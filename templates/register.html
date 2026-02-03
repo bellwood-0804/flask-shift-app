@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>名前一覧</title>
+<!-- これがflaskでcssの書き方 -->
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style1.css') }}">
+</head>
+
+<body>
+
+  <div class="liststyle">
+    <button ID="listback">前のページに戻る</button>
+  </div>
+
+  <form class="containe" id="register-form">
+    <label>新規メンバー</label>
+    <input type="text" id="name" placeholder="名前を入力してください">
+    <input type="text" id="password" placeholder="パスワードを入力してください">
+    <input type="number" id="hourly_wage" placeholder="時給（円）" min="0">
+    <button type="button" onclick="database()">新規登録</button>
+  </form>
+
+
+  <form class="containe" id="delete-form">
+  <h3>登録済みメンバー</h3>
+  <ul id="list"></ul>
+  <button type="submit">削除ボタン</button>
+  </form>
+
+
+  <!-- これがflaskでのjsの書き方 -->
+  <script src="{{ url_for('static', filename='js/register.js') }}"></script>
+</body>
+</html>

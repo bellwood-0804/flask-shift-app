@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ja">
+ <head>
+    <meta charset="UTF-8">
+     <title>メニュー画面</title> 
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style1.css') }}">
+ </head>
+
+ <body>
+
+
+  <div class="liststyle">
+  <button id="register">従業員登録</button>
+  <button id="stamping">出退勤の打刻ページ</button>
+</div>
+
+<script>
+  document.getElementById("register").addEventListener("click",()=>{
+    window.location.href="/register"
+  });
+
+  document.getElementById("stamping").addEventListener("click",()=>{
+    window.location.href="/stamping"
+  });
+
+</script>
+
+
+</script>
+ </body>
+</html>

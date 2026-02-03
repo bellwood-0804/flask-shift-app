@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>ログインページ</title>
+</head>
+<body>
+  <!-- 10行目、ユーザーがいれたものをまとめてデータとして扱うため -->
+  <h2>ログイン</h2> 
+  <form id="login-form">
+    <input type="text" id="username" placeholder="ユーザー名" required>
+    <input type="password" id="password" placeholder="パスワード" required>
+    <button type="submit">ログイン</button>
+  </form>
+
+  <script>
+    let token = null;
+  //  getElementByidでlogin-formの内容を読み込む、submitで提出されたらそれより後を実行する
+  // fetchは非同期処理なので、awaitを使うことで処理を待ってから動く　.thenでもよい
+    document.getElementById("login-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      // fetchはサーバーに情報をおくるための関数でawait(asyncの中でしか使えない)があるので、結果が返ってきたらresに代入する。書き方はfetch("URL",option)
+      const res = await fetch("/api/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        // json形式に変更
+        body: JSON.stringify({
+          username: document.getElementById("username").value,
+          password: document.getElementById("password").value
+        })
+      });
+      const data = await res.json(); 
+      if (res.ok) {
+
+        token = data.access_token;
+        alert("ログイン成功！JWTを取得しました");
+        // ここでページが遷移
+       window.location.href="/list";
+     
+      } else {
+        alert("ログイン失敗: " + data.msg);
+      }
+    });
+
+  </script>
+</body>
+</html>

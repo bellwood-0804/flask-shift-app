@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ja">
+ <head>
+    <meta charset="UTF-8">
+     <title>メニュー画面</title> 
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style1.css') }}">
+ </head>
+
+ <body>
+
+  <div class="notice">
+  ※ 打刻は1日1回ずつ正確に行ってください
+  ※もし出退勤を忘れた場合は必ず管理者に伝えてください
+  </div>
+
+<div class="liststyle">
+  <button id="startstamp" onclick="toggle()">出勤打刻</button>
+  <button id="endstamp" onclick="toggle()" style="display:none;">退勤打刻</button>
+</div>
+
+
+<script src="{{ url_for('static', filename='js/stamping.js') }}"></script>
+ </body>
+</html>

@@ -1,0 +1,71 @@
+/* 名前の登録削除をするときに利用 */
+.containe {
+      width: 400px;
+      margin: 20px;
+      border: 1px solid #ccc;
+      padding: 20px;
+      border-radius: 8px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      font-size: 16px;
+      border: 1px solid #aaa;
+      border-radius: 4px;
+      margin-bottom: 12px;
+    }
+     input[type="number"] {
+      width: 100%;
+      padding: 8px;
+      font-size: 16px;
+      border: 1px solid #aaa;
+      border-radius: 4px;
+      margin-bottom: 12px;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    /* listタグのためのcss */
+    .liststyle {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  border: 1px solid #ccc;
+}
+
+.liststyle button {
+  width: 180px;
+}
+
+
+.notice {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  font-size: 12px;
+  color: #d9534f;   /* 赤系 */
+  background: #fff3f3;
+  padding: 6px 10px;
+  border: 1px solid #f5c2c2;
+  border-radius: 4px;
+}

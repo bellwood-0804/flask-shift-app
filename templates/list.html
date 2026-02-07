@@ -8,6 +8,9 @@
 
  <body>
 
+  <div class="liststyle">
+    <button ID="loginback">前のページに戻る</button>
+  </div>
 
   <div class="liststyle">
   <button id="register">従業員登録</button>
@@ -15,6 +18,11 @@
 </div>
 
 <script>
+
+document.getElementById("loginback").addEventListener("click",()=>{
+    window.location.href="/"
+  });
+
   document.getElementById("register").addEventListener("click",()=>{
     window.location.href="/register"
   });

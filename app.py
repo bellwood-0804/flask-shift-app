@@ -1,6 +1,11 @@
 # C:\Users\USER\workspace
 # docker compose up --build -d
 #docker compose down
+# docker compose exec db mysql -u user -p shift_dbで　sqlに入ることができる
+# gitの保存の仕方
+# git add .
+# git commit -m "変更内容を簡単に書く"
+# git push origin main
 
 # request はpost getメソッドrequset.get_json()を使うときにやる jsonifyはpythonをjsonに変更　　API で { "message": "ok" } を返すときに使う
 from flask import Flask, request, jsonify, render_template
@@ -48,5 +53,4 @@ app.register_blueprint(register_bp)
 
 if __name__ == "__main__":
     init_db()
-    # stamping_db()
     app.run(host="0.0.0.0",port=5000, debug=True)

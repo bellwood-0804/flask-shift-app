@@ -2,6 +2,7 @@
 
 from flask import Blueprint,Flask, request, jsonify, render_template
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
+from werkzeug.security import generate_password_hash
 from db import get_conn, init_db
 
 register_bp=Blueprint("register", __name__)
@@ -47,9 +48,13 @@ def add_name():
     conn = get_conn()
     cur = conn.cursor()
     try:
-        cur.execute("INSERT INTO staff (name,password,hourly_wage) VALUES (%s,%s,%s)", (name.strip(),password.strip(),hourly_wage))
+        password = generate_password_hash(password)
+        cur.execute("INSERT INTO staff (name,password,hourly_wage) VALUES (%s,%s,%s)", (name.strip(),password,hourly_wage))
         # cur.execute("INSERT INTO staff (name, body) VALUES (%s, %s)", (name.strip(), body.strip()))入れたい値が二つあるならこのようにする
-
+        # 直前に INSERT した staff の id を取得,primarykeyを取得している
+        staff_id = cur.lastrowid
+        cur.execute("INSERT INTO adminuser (staff_id,name,password) VALUES (%s,%s,%s)", (staff_id,name.strip(),password))
+#    名前やパスワードを登録した時にその人物でも入れるようにするため
         conn.commit()
     except Exception as e:
         conn.rollback()
@@ -68,14 +73,14 @@ def add_name():
 def list_names():
     conn = get_conn()
     cur = conn.cursor()
-    cur.execute("SELECT id, name,password,hourly_wage FROM staff ORDER BY id DESC")
+    cur.execute("SELECT id, name,hourly_wage FROM staff ORDER BY id DESC")
     # sql の実行結果をすべて取得　fetchallによって
     rows = cur.fetchall()
     cur.close()
     conn.close()
 
     # JSONで返す
-    return jsonify([{"id": r[0], "name": r[1],"password":r[2],"hourly_wage":r[3]} for r in rows])  
+    return jsonify([{"id": r[0], "name": r[1],"hourly_wage":r[2]} for r in rows])  
 
 
 

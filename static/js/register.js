@@ -90,11 +90,11 @@ document.getElementById("delete-form").addEventListener("submit", async (e) => {
               input.name = "staff";        // ← 削除対象
               input.value = item.id; 
                  // 追加情報は data-* に保持
+                //  今のところdatasetはいらない
               input.dataset.name = item.name;
-              input.dataset.password = item.password;
               input.dataset.hourlyWage = item.hourly_wage;
                 const text = document.createTextNode(
-              ` ${item.id} ${item.name} ${item.password}（${item.hourly_wage}円）`
+              ` ${item.id} ${item.name} （${item.hourly_wage}円）`
                 );
             li.appendChild(input);
             li.appendChild(text);

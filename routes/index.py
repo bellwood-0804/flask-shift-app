@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, jsonify
-from flask_jwt_extended import create_access_token
+from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity,get_jwt
 from werkzeug.security import check_password_hash
 from db import get_conn, init_db
 
@@ -61,7 +61,26 @@ def login():
         return jsonify({"msg": "Invalid username or password"}), 401
 
     # JWT発行（idを入れるのがベター）
-    access_token = create_access_token(identity=user["id"])
+    # additionalは追加で入れたい情報　ほかにもroleなど権限を指定できる　subは誰か特定　expは有効期限
+#     access_token = create_access_token(
+#     identity=user["id"],
+#     additional_claims={
+#         "name": user["name"]
+#     }
+# )
+    access_token = create_access_token(
+     identity=username,
+     additional_claims={"name": username}
+)
 
+
+# access token : access token　と同義　access tokenの値を返している
     return jsonify(access_token=access_token), 200
+
+
+
+
+
+
+
 

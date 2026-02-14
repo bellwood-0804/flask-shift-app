@@ -1,11 +1,12 @@
 from flask import Blueprint, Flask, request, jsonify, render_template
-from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
+from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity, get_jwt
 
 list_bp = Blueprint("list", __name__)
 
 # 名前を登録削除するページ肉貯めのもの
 @list_bp.route("/list",methods=["GET"])
 # jwt認証後じゃないと入れないようにするため
+# @jwt_required()
 def list():
     return render_template("list.html")
 
@@ -13,4 +14,17 @@ def list():
 @list_bp.route("/stamping",methods=["GET"])
 def ortools():
     return render_template("stamping.html")
+
+@list_bp.route("/list/api/me")
+@jwt_required()
+def me():
+    claims = get_jwt()
+    return jsonify({
+        "name": claims["name"]
+    })
+   
+  
+
+
+
 

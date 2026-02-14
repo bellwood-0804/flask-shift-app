@@ -31,8 +31,9 @@
       });
       const data = await res.json(); 
       if (res.ok) {
-
-        token = data.access_token;
+     
+        localStorage.setItem("token", data.access_token);
+        // localStorage.getItem("token");でいつでも取り出せる
         alert("ログイン成功！JWTを取得しました");
         // ここでページが遷移
        window.location.href="/list";

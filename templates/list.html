@@ -7,6 +7,8 @@
  </head>
 
  <body>
+  <h2>ようこそ <span id="username"></span> さん</h2>
+
 
   <div class="liststyle">
     <button ID="loginback">前のページに戻る</button>
@@ -18,6 +20,28 @@
 </div>
 
 <script>
+  
+    async function loadUser() {
+      const token = localStorage.getItem("token")
+
+      if (!token) {
+        // ログインしてなければ戻す
+        window.location.href = "/";
+        return;
+      }
+
+    const res = await fetch("/list/api/me", {
+      // jwtお決まりの文言でこの人がログインした人ですという認証
+    headers: {
+    Authorization: `Bearer ${token}`
+   }
+  });
+
+      const data = await res.json();
+      document.getElementById("username").innerText = data.name;
+    }
+
+    loadUser();
 
 document.getElementById("loginback").addEventListener("click",()=>{
     window.location.href="/"
@@ -30,9 +54,6 @@ document.getElementById("loginback").addEventListener("click",()=>{
   document.getElementById("stamping").addEventListener("click",()=>{
     window.location.href="/stamping"
   });
-
-</script>
-
 
 </script>
  </body>

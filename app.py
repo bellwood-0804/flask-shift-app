@@ -34,7 +34,7 @@ from routes.register import register_bp
 # create_access_toke ユーザー名などの情報を埋め込んだ JWT を生成する関数。
 app = Flask(__name__)
 app.config["JWT_SECRET_KEY"] = "super-secret-key"
-app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=1)
+app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=100)
 
 jwt = JWTManager(app)
 

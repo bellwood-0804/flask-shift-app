@@ -6,5 +6,7 @@ from db import get_conn, init_db
 stamping_bp=Blueprint("stamping", __name__)
 
 @stamping_bp.route("/clock_in", methods=["POST"])
+@jwt_required()
 def clock_in():    
     user = get_jwt_identity()
+    return jsonify({"message": f"{user} さんの出勤を記録しました"})

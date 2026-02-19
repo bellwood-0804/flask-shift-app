@@ -29,7 +29,7 @@ from db import get_conn, init_db
 from routes.index import index_bp
 from routes.list import list_bp
 from routes.register import register_bp
-# from routes.stamping import stamping_bp
+from routes.stamping import stamping_bp
 
 # create_access_toke ユーザー名などの情報を埋め込んだ JWT を生成する関数。
 app = Flask(__name__)
@@ -49,7 +49,7 @@ app.register_blueprint(list_bp)
 app.register_blueprint(register_bp)
 
 # 打刻時の時間をとうろくするもの
-# app.stamping_blueprint(stamping_bp)
+app.register_blueprint(stamping_bp)
 
 if __name__ == "__main__":
     init_db()

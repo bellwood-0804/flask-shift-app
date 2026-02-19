@@ -42,14 +42,14 @@ def init_db():
     cur.execute("""
         CREATE TABLE IF NOT EXISTS stamping (
             id INT AUTO_INCREMENT PRIMARY KEY,
-            name VARCHAR(50) unique,
-            dates DATE NOT NULL,
-            start_stamping TIME NOT NULL,
-            end_stamping TIME NOT NULL,
-            overtime TIME NOT NULL,
-            rest TIME NOT NULL,
-            total TIME NOT NULL,
-            log TIMESTAMP NOT NULL    
+            name VARCHAR(50),
+            dates DATE,
+            start_stamping TIME,
+            end_stamping TIME,
+            overtime TIME,
+            rest TIME,
+            total TIME,
+            log TIMESTAMP    
         )
     """)
 

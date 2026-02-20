@@ -42,14 +42,13 @@ def init_db():
     cur.execute("""
         CREATE TABLE IF NOT EXISTS stamping (
             id INT AUTO_INCREMENT PRIMARY KEY,
-            name VARCHAR(50),
-            dates DATE,
-            start_stamping TIME,
-            end_stamping TIME,
+            name VARCHAR(50) NOT NULL,
+            start_stamping DATETIME,
+            end_stamping DATETIME,
             overtime TIME,
             rest TIME,
             total TIME,
-            log TIMESTAMP    
+            log TIMESTAMP DEFAULT CURRENT_TIMESTAMP    
         )
     """)
 
@@ -63,31 +62,30 @@ def init_db():
         )
     """)
 
-#     cur.execute("""
-#     SELECT id FROM adminuser WHERE name = %s
-# """, ("admin",))
-# # fetchoneはselectされた値から一つ取り出すもの　何もなかったらnone
-#     if cur.fetchone() is None:
-#       password = generate_password_hash("1234")
-#       cur.execute("""
-#         INSERT INTO staff (name, password, hourly_wage)
-#         VALUES (%s, %s, %s)
-#     """, ("admin", password, 3000))
+     # ① staff に admin があるか確認
+    cur.execute("SELECT id FROM staff WHERE name = %s", ("admin",))
+    row = cur.fetchone()
 
-#     staff_id = cur.lastrowid  # ← staff.id を取得 直前に取得したプライマリー気を取得t
+    if row is None:
+        password = generate_password_hash("1234")
+        cur.execute("""
+        INSERT INTO staff (name, password, hourly_wage)
+        VALUES (%s, %s, %s)
+    """, ("admin", password, 3000))
+        staff_id = cur.lastrowid
+    else:
+        staff_id = row[0]
 
-#     # ② adminuser を作る
-#     cur.execute("""
-#         INSERT INTO adminuser (staff_id, name, password)
-#         VALUES (%s, %s, %s)
-#     """, (staff_id, "admin", password))
+# ② adminuser に admin があるか確認
+    cur.execute("SELECT id FROM adminuser WHERE name = %s", ("admin",))
+    admin_row = cur.fetchone()
 
+    if admin_row is None:
+    # ここで改めてパスワードを取得
+      cur.execute("SELECT password FROM staff WHERE id = %s", (staff_id,))
+      password = cur.fetchone()[0]
 
-    # 変更を保存
-    conn.commit()
-    # カーソルを閉じる
-    cur.close()
-    # データベース接続を閉じる
-    conn.close()
-
-
+      cur.execute("""
+        INSERT INTO adminuser (staff_id, name, password)
+        VALUES (%s, %s, %s)
+    """, (staff_id, "admin", password))
